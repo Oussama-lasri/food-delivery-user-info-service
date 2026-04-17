@@ -1,17 +1,15 @@
-
-
 server:
   port: 9093
 
 spring:
   profiles:
-    active: dev
+    active: local
   application:
     name: USER-SERVICE
   jpa:
     hibernate:
       ddl-auto: create
-      show-sql: true
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect  
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

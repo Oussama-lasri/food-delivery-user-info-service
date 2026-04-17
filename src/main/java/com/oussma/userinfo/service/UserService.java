@@ -1,7 +1,6 @@
 package com.oussma.userinfo.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -31,12 +30,10 @@ public class UserService {
 
     public ResponseEntity<UserDTO> fetchUserDetailsById(Integer userId) {
          Optional<User> fetchedUser =  userRepo.findById(userId);
-//         if(fetchedUser.isPresent())
-//             return new ResponseEntity<>(userMaper.mapUserToUserDTO(fetchedUser.get()), HttpStatus.OK);
-//         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-    	return fetchedUser.map(user -> userMapper.mapUserToUserDTO(user))
-    			.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+
+         return fetchedUser.map(userMapper::mapUserToUserDTO)
+        	        .map(ResponseEntity::ok)
+        	        .orElseGet(() -> ResponseEntity.notFound().build());
 
     }
 }

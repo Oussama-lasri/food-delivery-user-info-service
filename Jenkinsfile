@@ -23,7 +23,7 @@ pipeline {
 
     stage('SonarQube Analysis') {
   steps {
-    sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.host.url=http://18.170.24.12:9000/ -Dsonar.login=squ_f334ef2fd8be4bd168a786df093e1d14978557bc'
+    sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.host.url=http://3.8.33.92:9000/ -Dsonar.login=squ_75a2d35e0b5b78e970b4fef107cfd81b4b267533'
   }
 }
 
@@ -31,9 +31,9 @@ pipeline {
    stage('Check code coverage') {
             steps {
                 script {
-                    def token = "squ_f334ef2fd8be4bd168a786df093e1d14978557bc"
-                    def sonarQubeUrl = "18.170.24.12:9000/api"
-                    def componentKey = "com.ousama:"
+                    def token = "squ_75a2d35e0b5b78e970b4fef107cfd81b4b267533"
+                    def sonarQubeUrl = "13.8.33.92:9000/api"
+                    def componentKey = "com.ousama.userinfo"
                     def coverageThreshold = 80.0
 
                     def response = sh (
@@ -56,13 +56,7 @@ pipeline {
         } 
 
 
-      stage('Docker Build and Push') {
-      steps {
-          sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-          sh 'docker build -t ousamalasri/user-info-service:${VERSION} .'
-          sh 'docker push ousamalasri/user-info-service:${VERSION}'
-      }
-    } 
+    
 
 
      stage('Cleanup Workspace') {
@@ -76,17 +70,17 @@ pipeline {
 
     stage('Update Image Tag in GitOps') {
       steps {
-         checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[ credentialsId: 'git-ssh', url: 'git@github.com:Oussama-lasri/deployment-folder.git']])
+         checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[ credentialsId: 'git-ssh', url: 'git@github.com:Oussama-lasri/deployment-folder.git']])
         script {
        sh '''
           sed -i "s/image:.*/image: ousamalasri\\/user-info-service:${VERSION}/" AWS/user-info-manifest.yml
         '''
-          sh 'git checkout main'
+          sh 'git checkout master'
           sh 'git add .'
           sh 'git commit -m "Update image tag"'
         sshagent(['git-ssh'])
             {
-                  sh('git push origin main')
+                  sh('git push origin master')
             }
         }
       }

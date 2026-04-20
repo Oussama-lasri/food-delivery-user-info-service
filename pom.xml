@@ -147,8 +147,6 @@
    				    <configuration>
         <excludes>
             <exclude>com/oussma/userinfo/UserinfoApplication.class</exclude>
-            <!-- Add more classes/packages you want to exclude -->
-            <exclude>com/oussma/userinfo/**/*.class</exclude>
         </excludes>
     </configuration>
 			</plugin>

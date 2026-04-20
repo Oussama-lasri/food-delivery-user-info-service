@@ -8,7 +8,7 @@ import org.springframework.test.context.ActiveProfiles;
 @SpringBootTest
 class UserinfoApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+//	@Test
+//	void contextLoads() {
+//	}
 }

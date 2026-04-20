@@ -75,6 +75,11 @@
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+    <groupId>com.h2database</groupId>
+    <artifactId>h2</artifactId>
+    <scope>runtime</scope>
+</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -139,6 +144,13 @@
 			            </goals>
 			        </execution>
    				 </executions>
+   				    <configuration>
+        <excludes>
+            <exclude>com/oussma/userinfo/UserinfoApplication.class</exclude>
+            <!-- Add more classes/packages you want to exclude -->
+            <exclude>com/oussma/userinfo/**/*.class</exclude>
+        </excludes>
+    </configuration>
 			</plugin>
 		</plugins>
 	</build>

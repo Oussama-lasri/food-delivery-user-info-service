@@ -21,7 +21,6 @@ import com.oussma.userinfo.dto.UserDTO;
 import com.oussma.userinfo.entity.User;
 import com.oussma.userinfo.mapper.UserMapper;
 import com.oussma.userinfo.repository.UserRepository;
-import com.oussma.userinfo.service.UserService;
 
 class UserServiceTest {
 		

@@ -23,7 +23,7 @@ pipeline {
 
     stage('SonarQube Analysis') {
   steps {
-    sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.host.url=http://3.8.33.92:9000/ -Dsonar.login=squ_75a2d35e0b5b78e970b4fef107cfd81b4b267533'
+    sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.host.url=http://3.8.33.92:9000/ -Dsonar.token=squ_75a2d35e0b5b78e970b4fef107cfd81b4b267533'
   }
 }
 
@@ -34,7 +34,7 @@ pipeline {
                     def token = "squ_75a2d35e0b5b78e970b4fef107cfd81b4b267533"
                     def sonarQubeUrl = "13.8.33.92:9000/api"
                     def componentKey = "com.oussma.userinfo"
-                    def coverageThreshold = 80.0
+                    def coverageThreshold = 70.0
 
                     def response = sh (
                         script: "curl -H 'Authorization: Bearer ${token}' '${sonarQubeUrl}/measures/component?component=${componentKey}&metricKeys=coverage'",

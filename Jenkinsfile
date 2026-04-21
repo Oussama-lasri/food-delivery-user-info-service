@@ -55,7 +55,7 @@ pipeline {
             }
         } 
 
-	stages {
+
         stage('Docker Build & Push') {
             steps {
                 sh """
@@ -66,7 +66,7 @@ pipeline {
                 """
             }
         }
-    }
+    
 
     
 

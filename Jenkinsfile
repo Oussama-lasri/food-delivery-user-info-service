@@ -55,17 +55,18 @@ pipeline {
             }
         } 
 
-	stage('Docker Build and Push') {
-  steps {
-    script {
-      sh '''
-        echo "$DOCKERHUB_CREDENTIALS_PSW" | docker login -u "$DOCKERHUB_CREDENTIALS_USR" --password-stdin
-        docker build -t ousamalasri/user-info-service:${VERSION} .
-        docker push ousamalasri/user-info-service:${VERSION}
-      '''
+	stages {
+        stage('Docker Build & Push') {
+            steps {
+                sh """
+                    echo \$DOCKERHUB_CREDENTIALS_PSW | docker login -u \$DOCKERHUB_CREDENTIALS_USR --password-stdin
+                    docker build -t ousamalasri/user-info-service:${VERSION} .
+                    docker push ousamalasri/user-info-service:${VERSION}
+                    docker logout
+                """
+            }
+        }
     }
-  }
-}
 
     
 

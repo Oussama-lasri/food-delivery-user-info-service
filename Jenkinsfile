@@ -33,7 +33,7 @@ pipeline {
                 script {
                     def token = "squ_7691a6709d4fde8a7c50bc7e553fa1492b054b73"
                     def sonarQubeUrl = "18.175.163.94:9000/api"
-                    def componentKey = "com.oussma.userinfo"
+                    def componentKey = "com.oussma:userinfo"
                     def coverageThreshold = 80.0
 
                     def response = sh (

@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    
+    DOCKERHUB_CREDENTIALS = credentials('DOCKER_HUB_CREDENTIAL')
     VERSION = "${env.BUILD_ID}"
 
   }
@@ -55,6 +55,13 @@ pipeline {
             }
         } 
 
+ stage('Docker Build and Push') {
+      steps {
+          sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+          sh 'docker build -t ousamalasri/user-info-service:${VERSION} .'
+          sh 'docker push ousamalasri/user-info-service:${VERSION}'
+      }
+    } 
 
     
 
